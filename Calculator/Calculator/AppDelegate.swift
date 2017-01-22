@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  Calculator
 //
-//  Created by Flatiron School on 1/20/17.
-//  Copyright © 2017 jennyshalai. All rights reserved.
+//  Created by Jenny Shalai on 1/21/17.
+//  Copyright © 2017 shalai. All rights reserved.
 //
 
 import UIKit
