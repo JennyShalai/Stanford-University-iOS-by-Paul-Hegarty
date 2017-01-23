@@ -10,21 +10,27 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var display: UILabel!
+    @IBOutlet private weak var display: UILabel!
     
-    var isUserInTyping = false
+    private var isUserInTyping = false
+    private var brain = CalculatorBrain()
+    private var displayValue: Double {
+        get {
+            return Double(display.text!)!
+        }
+        set {
+            display.text = String(newValue)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
 
-    @IBAction func digitTapped(_ sender: UIButton) {
+    @IBAction private func digitTapped(_ sender: UIButton) {
         let digit = sender.currentTitle!
         if isUserInTyping {
             let textCurrentlyOnDisplay = display.text!
@@ -34,13 +40,17 @@ class ViewController: UIViewController {
         }
         isUserInTyping = true
     }
-    @IBAction func performOperation(_ sender: UIButton) {
-        isUserInTyping = false
-        if let mathSymbol = sender.currentTitle {
-            if mathSymbol == "π" {
-                display.text = String(M_PI)
-            }
+    
+    
+    @IBAction private func performOperation(_ sender: UIButton) {
+        if isUserInTyping {
+            brain.setOperand(operand: displayValue)
+            isUserInTyping = false
         }
+        if let mathSymbol = sender.currentTitle {
+            brain.performOperation(symbol: mathSymbol)
+        }
+        displayValue = brain.result
     }
 
 }
